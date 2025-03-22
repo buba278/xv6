@@ -90,6 +90,16 @@ myproc(void)
 }
 
 int
+getppid(void)
+{
+  acquire(&wait_lock);
+  int ppid = myproc()->parent->pid;
+  release(&wait_lock);
+
+  return ppid;
+}
+
+int
 allocpid()
 {
   int pid;

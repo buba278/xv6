@@ -194,6 +194,12 @@ UPROGS=\
 	$U/_grind\
 	$U/_wc\
 	$U/_zombie\
+	$U/_sleep_1\
+	$U/_sleep_2\
+	$U/_pingpong\
+	$U/_findppid\
+	$U/_primes\
+	$U/_primes_sum\
 
 
 

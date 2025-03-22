@@ -91,3 +91,24 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+uint64
+sys_getppid(void)
+{
+  // implement getppid
+  
+  // proc structure requires wait_lock when accessing parent
+  // supposedly for no concurrent access of a parent
+  // return myproc()->parent->pid; so this isn't good cause u 
+  // need to like lock it then release it
+
+  // "wait lock must be held"
+  // but wait_lock specific implementation in scope of proc.c
+  // so will just use this as like a abstracted getter
+  
+  // also note that spinlock only protects the instructions between locks
+  // from being run by more than one thread rather than the data in context
+  
+  // get the pointer to existing parent struct
+  return getppid();
+}
