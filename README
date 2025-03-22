@@ -1,49 +1,80 @@
-xv6 is a re-implementation of Dennis Ritchie's and Ken Thompson's Unix
-Version 6 (v6).  xv6 loosely follows the structure and style of v6,
-but is implemented for a modern RISC-V multiprocessor using ANSI C.
+# xv6 Lab 1 - SOFTENG370 2025 S1
 
-ACKNOWLEDGMENTS
+## Overview
+This repository contains my work for **Lab 1** of SOFTENG370 (Operating Systems). The lab focuses on exploring **xv6**, a re-implementation of Unix designed for teaching purposes. By working with xv6, I gained hands-on experience with system calls, kernel interactions, and Unix-based development.
 
-xv6 is inspired by John Lions's Commentary on UNIX 6th Edition (Peer
-to Peer Communications; ISBN: 1-57398-013-7; 1st edition (June 14,
-2000)).  See also https://pdos.csail.mit.edu/6.1810/, which provides
-pointers to on-line resources for v6.
+## Lab Objectives
+- Set up and build xv6 inside a virtualized environment.
+- Run xv6 on an emulator (QEMU) and interact with the shell.
+- Implement and test Unix based user programs within xv6.
+- Work with system calls and inter-process communication.
 
-The following people have made contributions: Russ Cox (context switching,
-locking), Cliff Frey (MP), Xiao Yu (MP), Nickolai Zeldovich, and Austin
-Clements.
+## Installation & Setup
+You can follow these steps to set up xv6 in your own environment:
 
-We are also grateful for the bug reports and patches contributed by
-Takahiro Aoyagi, Marcelo Arroyo, Silas Boyd-Wickizer, Anton Burtsev,
-carlclone, Ian Chen, Dan Cross, Cody Cutler, Mike CAT, Tej Chajed,
-Asami Doi,Wenyang Duan, eyalz800, Nelson Elhage, Saar Ettinger, Alice
-Ferrazzi, Nathaniel Filardo, flespark, Peter Froehlich, Yakir Goaron,
-Shivam Handa, Matt Harvey, Bryan Henry, jaichenhengjie, Jim Huang,
-Matúš Jókay, John Jolly, Alexander Kapshuk, Anders Kaseorg, kehao95,
-Wolfgang Keller, Jungwoo Kim, Jonathan Kimmitt, Eddie Kohler, Vadim
-Kolontsov, Austin Liew, l0stman, Pavan Maddamsetti, Imbar Marinescu,
-Yandong Mao, Matan Shabtay, Hitoshi Mitake, Carmi Merimovich, Mark
-Morrissey, mtasm, Joel Nider, Hayato Ohhashi, OptimisticSide,
-phosphagos, Harry Porter, Greg Price, RayAndrew, Jude Rich, segfault,
-Ayan Shafqat, Eldar Sehayek, Yongming Shen, Fumiya Shigemitsu, snoire,
-Taojie, Cam Tenny, tyfkda, Warren Toomey, Stephen Tu, Alissa Tung,
-Rafael Ubal, Amane Uehara, Pablo Ventura, Xi Wang, WaheedHafez,
-Keiichi Watanabe, Lucas Wolf, Nicolas Wolovick, wxdao, Grant Wu, x653,
-Jindong Zhang, Icenowy Zheng, ZhUyU1997, and Zou Chang Wei.
+1. **Install Ubuntu 24.04.2 LT** either through WSL or VirtualBox / any VM software
+2. **Install necessary tools** for compiling xv6:
+   ```sh
+   sudo apt update
+   sudo apt install build-essential qemu gcc-riscv64-unknown-elf gdb-multiarch
+   ```
+5. **Clone the repo**:
+   ```sh
+   https://github.com/buba278/xv6.git
+   cd xv6-labs
+   ```
+6. **Compile and run xv6**:
+   ```sh
+   make qemu
+   ```
 
-The code in the files that constitute xv6 is
-Copyright 2006-2024 Frans Kaashoek, Robert Morris, and Russ Cox.
+## Tasks & Implementations
 
-ERROR REPORTS
+### Task 1: Implementing `sleep`
+- Created `user/sleep.c`, which suspends execution for a given number of seconds using the `sleep` system call.
+- Handled missing arguments and converted input to an integer using `atoi`.
+- Added the program to `UPROGS` in `Makefile`.
 
-Please send errors and suggestions to Frans Kaashoek and Robert Morris
-(kaashoek,rtm@mit.edu).  The main purpose of xv6 is as a teaching
-operating system for MIT's 6.1810, so we are more interested in
-simplifications and clarifications than new features.
+### Task 2: Alternative `sleep` Implementation
+- Implemented `user/sleep_2.c` **without using the `sleep` system call**.
+- Provided justifications for differences in behavior (`task2.txt`).
 
-BUILDING AND RUNNING XV6
+### Task 3: Inter-process Communication - `pingpong`
+- Created `user/pingpong.c`, where a parent process communicates with two child processes via pipes.
+- The child processes respond with "ACK" messages after receiving "ping".
 
-You will need a RISC-V "newlib" tool chain from
-https://github.com/riscv/riscv-gnu-toolchain, and qemu compiled for
-riscv64-softmmu.  Once they are installed, and in your shell
-search path, you can run "make qemu".
+### Task 4: Implementing `getppid` System Call
+- Modified **kernel files** (`syscall.c`, `sysproc.c`, `syscall.h`) to add `getppid`.
+- Created `user/findppid.c` to demonstrate **process hierarchy** by printing parent-child relationships in a chain.
+
+### Task 5: Concurrent Prime Sieve
+- Implemented `user/primes.c`, a **multi-process** implementation of the **Sieve of Eratosthenes**.
+- Used `fork()`, `pipe()`, and **message passing** to filter out prime numbers concurrently.
+
+### Task 6: Consecutive Prime Sum
+- Extended `primes.c` into `user/primes_sum.c` to calculate and display sums of consecutive primes.
+
+## Running the Programs
+To test the implemented programs in xv6, boot xv6 using:
+```sh
+make qemu
+```
+Then, within the xv6 shell, run:
+```sh
+$ sleep 10  # Sleeps for 10 seconds
+$ pingpong  # Parent-child communication
+$ findppid 5  # Displays parent-child process chain
+$ primes 20  # Finds primes up to 20
+$ primes_sum 20  # Computes sums of consecutive primes
+```
+
+## Learning Outcomes
+This lab deepened my understanding of:
+- **Kernel-level programming** and **system calls**.
+- **Process creation** and **inter-process communication**.
+- **Pipe-based concurrency** and **message passing**.
+- **Unix-style user-level program development**.
+
+---
+### Acknowledgments
+This work was completed as part of **SOFTENG370** at The Univeristy of Auckland. Special thanks to the course instructors and teaching assistants for their guidance.
