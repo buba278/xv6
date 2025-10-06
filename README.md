@@ -1,7 +1,7 @@
 # xv6 Lab 2025 S1
 
 ## Overview
-This repository contains my work for **Lab 1** (Operating Systems paper). The lab focuses on exploring **xv6**, a re-implementation of Unix designed for teaching purposes. By working with xv6, I gained hands-on experience with system calls, kernel interactions, and Unix-based development.
+This repository contains my work for **Lab 1** (Operating Systems paper at UOA). The lab focuses on exploring **xv6**, a re-implementation of Unix designed for teaching purposes. By working with xv6, I gained hands-on experience with system calls, kernel interactions, and Unix-based development.
 
 ## Lab Objectives
 - Set up and build xv6 inside a virtualized environment.
@@ -69,12 +69,7 @@ $ primes_sum 20  # Computes sums of consecutive primes
 ```
 
 ## Learning Outcomes
-This lab deepened my understanding of:
 - **Kernel-level programming** and **system calls**.
 - **Process creation** and **inter-process communication**.
 - **Pipe-based concurrency** and **message passing**.
 - **Unix-style user-level program development**.
-
----
-### Acknowledgments
-This work was completed as part of **SOFTENG370** at The Univeristy of Auckland. Special thanks to the course instructors and teaching assistants for their guidance.
